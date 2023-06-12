@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "$string" | tr xyz _
+echo "$string" | tr [a-zA-Z]
