@@ -1,2 +1,2 @@
 #!/bin/bash
-find . "." -type f -name "*.gif" -o -name ".*.gif | sed 's#.*/##; s#\.gif##' | sort -b | seb '$a\'
+find . -name \*.gif -type f -printf "%f\n" | LC_COLLATE=C sort --ignore-case | rev | cut -c 5- | rev
