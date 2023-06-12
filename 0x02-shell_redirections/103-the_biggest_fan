@@ -1,2 +1,2 @@
-input="web_server_logs.tvs"
-cut -f1 "&input" | sort | uniq -c | sort -nr | head -n 11 
+#!/bin/bash
+cut -f1 -d$'\t' | sort | uniq -c | tr -s ' ' | sort -t' ' -k1 -nr | head -11 | cut -d' ' -f3 
