@@ -1,2 +1,2 @@
 #!/bin/bash
-tr \"Ac\" \"ze\" < input > output
+echo "$string" | tr xyz _
