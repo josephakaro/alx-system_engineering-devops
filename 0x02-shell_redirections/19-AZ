@@ -1,2 +1,2 @@
 #!/bin/bash
-echo 'Replace all charaters' | tr Ac Ze
+echo "$string" | tr Ac Ze
