@@ -1,2 +1,2 @@
 #!/bin/bash
-for . -type d
+find . -type d
