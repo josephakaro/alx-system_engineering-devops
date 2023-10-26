@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# displays the content of the file /etc/passwd
+while read; do
+cut -d: -f1 /etc/passwd | sort
+done

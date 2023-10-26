@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# bash script that loops 10x printing certain strings on certain loops
+while ((i < 10)); do
+((i++))
+if ((i == 4))
+then
+    echo "bad luck"
+elif ((i == 8))
+then
+    echo "good luck"
+else
+    echo "Holberton School"
+fi
+done

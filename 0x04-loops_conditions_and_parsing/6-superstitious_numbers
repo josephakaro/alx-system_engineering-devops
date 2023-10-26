@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# bash script that displays numbers from 1 to 20 with exceptions on 4, 9, and 17
+while ((i < 20)); do
+((i++))
+    echo "$i"
+case "$i" in
+    4) echo "bad luck from China";;
+    9) echo "bad luck from Japan";;
+    17) echo "bad luck from Italy";;
+esac
+done

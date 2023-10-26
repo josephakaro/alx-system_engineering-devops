@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# This displays Holberton School 10x with an additional 'Hi' at 9th iteration
+while ((i < 10)); do
+echo "Holberton School"
+((i++))
+if ((i == 9))
+then
+    echo "Hi"
+fi
+done

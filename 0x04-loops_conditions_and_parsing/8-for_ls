@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# bash script that displays a list of content in the current directory
+for i in *; do
+    echo "$i" | rev | cut -d '-' -f -1 | rev
+done

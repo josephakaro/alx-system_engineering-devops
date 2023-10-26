@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# bash script that displays the content of a file using while loop + IFS
+cat file | while IFS= read -r line; do
+The user USERNAME is part of the GROUP_ID gang, lives in HOME_DIRECTORY and rides COMMAND/SHELL. USER ID's place is protected by the passcode PASSWORD, more info about the user here: USER ID INFO
+done

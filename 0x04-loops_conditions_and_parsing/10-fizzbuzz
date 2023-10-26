@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# write a bash script that displays numbers from 1 to 100 and then FizzBuzz
+i=0
+while ((i < 100)); do
+((i++))
+if ! ((i%15))
+then
+    echo "FizzBuzz"
+elif ! ((i%3))
+then
+    echo "Fizz"
+elif ! ((i%5))
+then
+    echo "Buzz"
+else
+    echo "$i"
+fi
+done
