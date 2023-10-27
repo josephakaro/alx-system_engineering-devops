@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# this script manages programs running in the background (daemons)
+case "$1" in
+    start)
+	sudo -b ./manage_my_process
+	pgrep -lf ./manage_my_process | grep sudo | cut -d " " -f 1 >> /var/run/my_process.pid
+        echo "manage_my_process started"
+	;;
+
+    stop)
+	pkill -f ./manage_my_process
+	rm /var/run/my_process.pid
+	echo "manage_my_process stopped"
+	;;
+
+    restart)
+	pkill -f ./manage_my_process
+	rm /var/run/my_process.pid
+	sudo -b ./manage_my_process
+	pgrep -lf ./manage_my_process | grep sudo | cut -d " " -f 1 >> /var/run/my_process.pid
+	echo "manage_my_process restarted"
+	;;
+    *)
+        echo "Usage: manage_my_process {start|stop|restart}"
+esac

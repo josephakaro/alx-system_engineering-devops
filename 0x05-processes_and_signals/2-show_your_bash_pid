@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# using list process func, this script displays lines containing the bash word
+# shellcheck disable=SC2009
+# ps -o pid,args -C bash
+ps aux | grep "bash"

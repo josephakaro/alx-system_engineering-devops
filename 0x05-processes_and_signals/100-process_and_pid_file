@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# creates a pid, displays strings indefinitely, deletes the PID and terminates
+echo $$ > /var/run/holbertonscript.pid
+while true; do
+echo "To infinity and beyond"
+trap "echo 'I hate the kill command'" SIGTERM
+trap "echo 'Y U no love me?!'" SIGINT
+trap "rm /var/run/holbertonscript.pid & exit" SIGQUIT
+done

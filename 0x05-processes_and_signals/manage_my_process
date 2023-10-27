@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# manages processes running in the background (daemons)
+while true; do
+echo "I am alive!" >> /tmp/my_process
+sleep 2
+done
