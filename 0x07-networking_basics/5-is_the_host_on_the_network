@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# pings an IP address passed as an argument
+ping -c5 -i3 8.8.8.8
+if [ $? -eq 0 ]
+then /root/scripts/test1.sh
+exit 0
+else echo “Usage: 5-is_the_host_on_the_network {IP_ADDRESS}”
+fi
