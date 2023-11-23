@@ -1,5 +1,5 @@
 # 0x09. Web Infractructure Design
-
+<img align="center" alt="Web infrastructure Design"  src="https://miro.medium.com/v2/resize:fit:2000/1*Q4d4b_iMH6gIDcnRkYz2kQ.jpeg" />
 ## Resources:
 
 ### Read or watch:
