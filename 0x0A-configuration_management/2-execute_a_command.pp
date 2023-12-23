@@ -4,7 +4,6 @@
   - Process name: killmenow
 */
 exec{'killmenow':
-  command     => 'pkill -f killmenow',
-  path        => '/usr/bin:/usr/sbin:/bin',
-  refreshonly => true,
+  command     => 'pkill -9 -f killmenow',
+  path        => ['/usr/bin', '/usr/sbin', '/bin'],
 }
