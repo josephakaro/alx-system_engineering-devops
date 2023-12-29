@@ -1,2 +1,6 @@
 #!/usr/bin/env bash
-ssh-keygen -t rsa -b 4096 
+key_name="school"
+key_bits=4096
+passphrase="betty"
+
+ssh-keygen -t rsa -b $key_bits -N "$passphrase" -f ~/.ssh/$key_name
