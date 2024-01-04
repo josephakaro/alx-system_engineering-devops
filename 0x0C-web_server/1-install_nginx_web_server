@@ -1,7 +1,26 @@
 #!/usr/bin/env bash
-# Installs Nginx
 
-apt-get update
-apt-get install -y nginx
-echo "Hello world!" > /var/www/html/index.html
-service nginx start
+# Task: Install Nginx Web Server into a remote server.
+
+# Requirments:
+    #-> Install Nginx.
+    #-> Nginx should listen to port 80.
+    #-> Serve Page containing "Hello World!" on GET using Curl.
+    #-> systemctl command is not allowed
+
+# Script:
+
+# Installing Nginx with -y flag to say yes to any prompt
+apt install nginx -y
+
+# Allowing Firewall for HTTP which listens on port 80
+ufw allow "Nginx HTTP"
+
+# Activates the firewall role
+ufw enable -y
+
+# Server "Hello, World! message" on GET request using curl
+echo "Hello World!" >> ~/var/www/html/index.html
+
+# Restarts Nginx without using Systemctl nginx restart
+/etc/init.d/nginx restart
