@@ -10,20 +10,17 @@
 
 # Script:
 
+# get updates:
+sudo apt-get -y updates
+
 # Installing Nginx with -y flag to say yes to any prompt
-apt-get install nginx -y
+sudo apt-get -y install nginx
 
 # Allowing Firewall for HTTP which listens on port 80
-ufw allow "Nginx HTTP" -y
-
-# Activates the firewall role
-ufw enable -y
-
-# Start Nginx
-service nginx start
+sudo ufw allow "Nginx HTTP"
 
 # Server "Hello, World! message" on GET request using curl
-echo "Hello World!" > ~/var/www/html/index.html
+echo 'Hello World!' > /var/www/html/index.html
 
 # Restarts Nginx without using Systemctl nginx restart
-service nginx restart
+sudo service nginx restart
