@@ -1,49 +1,24 @@
-# Install Nginx package
-package { 'nginx':
-  ensure => installed,
+# Script to install nginx using puppet
+
+package {'nginx':
+  ensure => 'present',
 }
 
-# Configure Nginx service
-service { 'nginx':
-  ensure  => running,
-  enable  => true,
-  require => Package['nginx'],
+exec {'install':
+  command  => 'sudo apt-get update ; sudo apt-get -y install nginx',
+  provider => shell,
 }
 
-# Nginx configuration file
-file { '/etc/nginx/sites-available/default':
-  ensure  => file,
-  content => "
-    server {
-        listen 80;
-        server_name _;
-
-        location / {
-            # Return Hello World! for GET requests to /
-            if ($request_method = 'GET') {
-                return 200 'Hello World!\n';
-            }
-        }
-
-        location /redirect_me {
-            # Perform a 301 redirect
-            return 301 /new_location;
-        }
-
-        location /new_location {
-            # Example page for redirected URL
-            return 200 'This page was redirected!\n';
-        }
-    }
-  ",
-  notify  => Service['nginx'],
+exec {'Hello World!':
+  command  => 'echo "Hello World!" | sudo dd status=none of=/var/www/html/index.html',
+  provider => shell,
 }
 
-# Create symlink to enable the site
-file { '/etc/nginx/sites-enabled/default':
-  ensure  => link,
-  target  => '/etc/nginx/sites-available/default',
-  require => File['/etc/nginx/sites-available/default'],
-  notify  => Service['nginx'],
+exec {'sudo sed -i "s/listen 80 default_server;/listen 80 default_server;\\n\\tlocation \/redirect_me {\\n\\t\\treturn 301 https:\/\/www.youtube.com\/;\\n\\t}/" /etc/nginx/sites-available/default':
+  provider => shell,
 }
 
+exec {'run':
+  command  => 'sudo service nginx restart',
+  provider => shell,
+}
