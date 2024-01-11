@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-
-# Task: Install Nginx Web Server into a remote server.
+#Task: Install Nginx Web Server into a remote server.
 
 # Requirments:
     #-> Install Nginx.
