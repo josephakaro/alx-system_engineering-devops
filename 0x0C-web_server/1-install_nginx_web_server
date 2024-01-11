@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 #Task: Install Nginx Web Server into a remote server.
 
-apt-get  update -y
+sudo apt-get  update
 
-apt-get install nginx -y
+sudo apt-get install -y nginx
 
-ufw allow "Nginx HTTP"
+sudo ufw allow "Nginx HTTP"
 
 echo 'Hello World!' > /var/www/html/index.html
 
-service nginx restart
+sudo service nginx restart
