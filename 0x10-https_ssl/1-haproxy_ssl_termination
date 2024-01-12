@@ -14,12 +14,12 @@ defaults
     timeout server 50s
 
 frontend https
-    bind *:443 ssl crt /etc/letsencrypt/live/www.saheed.tech/fullchain.pem
+    bind *:443 ssl crt /etc/letsencrypt/live/www.josephakaro.tech/fullchain.pem
     default_backend backend_servers
 
 backend backend_servers
     balance roundrobin
-    option httpchk GET / HTTP/1.1\r\nHost:\ www.saheed.tech
-    server 108440-web-01 52.87.219.241:80 check
-    server 108440-web-02 54.242.162.151:80 check
+    option httpchk GET / HTTP/1.1\r\nHost:\ www.josephakaro.tech
+    server 422357-web-01 34.207.188.65:80 check
+    server 422357-web-02 54.197.130.119:80 check
 sudo service haproxy restart
