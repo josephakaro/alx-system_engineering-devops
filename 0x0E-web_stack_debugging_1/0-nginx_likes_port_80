@@ -2,11 +2,10 @@
 # Debuging Nginx listening port 80 error
 # Install Nginx
 sudo apt-get -y update
-sudo apt-get install nginx -y
+sudo apt-get install -y nginx
 
 # Configure Nginx to listen on port 80 of all active IPv4 IPs
-sudo sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
-sudo sed -i 's/listen \[::\]:80 default_server;/listen \[::\]:80;/g' /etc/nginx/sites-available/default
+sudo sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default && sed -i 's/listen \[::\]:80 default_server;/listen \[::\]:80;/g' /etc/nginx/sites-available/default
 
 # Start Nginx
 system nginx start
