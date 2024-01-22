@@ -1,28 +1,36 @@
 #!/usr/bin/env bash
-# Script that configures Nginx server with a custom header
+
+# Install Nginx
 sudo apt-get update
 sudo apt-get install -y nginx
 
-sudo mkdir /etc/nginx/html
-sudo touch /etc/nginx/html/index.html
-echo "Hello World!" > /etc/nginx/html/index.html
-sudo touch /etc/nginx/html/404.html
-echo "Ceci n'est pas une page" > /etc/nginx/html/404.html
-
-printf %s "server {
+# Create a new Nginx configuration file
+sudo tee /etc/nginx/sites-available/custom-http-response-header <<EOF
+server {
     listen 80;
-    listen [::]:80 default_server;
-    add_header X-Served-By $HOSTNAME;
-    root   /etc/nginx/html;
-    index  index.html index.htm;
-    location /redirect_me {
-        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-    }
-    error_page 404 /404.html;
-    location /404 {
-      root /etc/nginx/html;
-      internal;
-    }
-}" > /etc/nginx/sites-available/default
+    server_name web-01;
 
-sudo service nginx restart
+    location / {
+        add_header X-Served-By $hostname;
+        ...
+    }
+}
+
+server {
+    listen 80;
+    server_name web-02;
+
+    location / {
+        add_header X-Served-By $hostname;
+        ...
+    }
+}
+EOF
+
+# Create a symbolic link to the new configuration file
+sudo ln -s /etc/nginx/sites-available/custom-http-response-header /etc/nginx/sites-enabled/
+
+# Restart Nginx to apply the changes
+sudo nginx -s quit
+
+sudo nginx
