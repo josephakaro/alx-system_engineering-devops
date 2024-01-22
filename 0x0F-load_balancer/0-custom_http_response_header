@@ -5,7 +5,7 @@ sudo apt-get update
 sudo apt-get install -y nginx
 
 # Create a new Nginx configuration file
-sudo tee /etc/nginx/sites-available/custom-http-response-header <<EOF
+sudo tee /etc/nginx/sites-available/default <<EOF
 server {
     listen 80;
     server_name web-01;
@@ -28,9 +28,7 @@ server {
 EOF
 
 # Create a symbolic link to the new configuration file
-sudo ln -s /etc/nginx/sites-available/custom-http-response-header /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 
 # Restart Nginx to apply the changes
-sudo nginx -s quit
-
-sudo nginx
+sudo service nginx restart
