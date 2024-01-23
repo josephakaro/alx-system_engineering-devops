@@ -1,18 +1,16 @@
-#!/usr/bin/env bash
-# A bash script that installs nginx on an ubuntu machine.
-# This scripts also configures the default webpage served to be "Hello World!"
-# When request url matches /redirect_me, it redirects to my youtube channel.
+#!/bin/bash
+# Bash script to setup any server with same con
+# Install Nginx
+sudo apt-get update
+sudo apt-get install -y nginx
 
-sudo apt-get update -y
+# Create a new HTML file with the redirection message
+echo "<html><head><title>301 Moved Permanently</title></head><body><h1>301 Moved Permanently</h1></body></html>" | sudo tee /var/www/html/index.html
 
-sudo apt-get install nginx -y
+# Configure Nginx to redirect requests to /redirect_me to the new page
+sudo sed -i '/^#.*redirect_me/ s/#//' /etc/nginx/sites-available/default
+sudo sed -i '/^#.*return 301/ s/#//' /etc/nginx/sites-available/default
+sudo sed -i 's|http://www.example.com|https://www.youtube.com/watch?v=QH2-TGUlwu4|g' /etc/nginx/sites-available/default
 
-echo "Hello World!" | sudo tee /var/www/html/index.html > /dev/null
-
-NEW_RULE="\\\n\tlocation = /redirect_me {\n\t\t return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}\n"
-
-sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bakup
-
-sudo sed -i "53i $NEW_RULE" /etc/nginx/sites-available/default
-
+# Restart Nginx
 sudo /etc/init.d/nginx restart
