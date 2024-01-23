@@ -9,7 +9,7 @@ sudo apt-get install nginx -y
 
 echo "Hello World!" | sudo tee /var/www/html/index.html > /dev/null
 
-NEW_RULE="\\\n\tlocation = /redirect_me {\n\t\t return 301 https://twitter.com/joseph_akar0;\n\t}\n"
+NEW_RULE="\\\n\tlocation = /redirect_me {\n\t\t return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}\n"
 
 sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bakup
 
