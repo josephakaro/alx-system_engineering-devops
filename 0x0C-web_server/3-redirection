@@ -15,4 +15,4 @@ sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.ba
 
 sudo sed -i "53i $NEW_RULE" /etc/nginx/sites-available/default
 
-sudo service nginx restart
+sudo /etc/init.d/nginx restart
