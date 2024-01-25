@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Check if nginx is installed
+if ! command -v nginx &> /dev/null
+then
+    echo "Nginx is not installed. Please install it first."
+    exit 1
+fi
+
+# Create a backup of the original nginx configuration file
+sudo cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
+
+# Change the user in the nginx configuration file
+sudo sed -i 's/user\s*[^;]*;/user nginx;/' /etc/nginx/nginx.conf
+
+# Change the listen directive in the default site configuration
+sudo sed -i 's/listen\s*[^;]*;/listen 8080;/g' /etc/nginx/sites-available/default
+
+# Restart Nginx to apply the changes
+sudo service nginx restart
