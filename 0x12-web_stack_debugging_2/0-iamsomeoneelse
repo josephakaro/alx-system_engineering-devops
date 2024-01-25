@@ -1,5 +1,4 @@
-#!/bin/env bash
-
+#!/usr/bin/env bash
 # Check if the username argument is provided
 if [ $# -eq 0 ]; then
     echo "Usage: $0 <username>"
