@@ -1,31 +1,24 @@
 #!/usr/bin/env bash
+# configures an Ubuntu machine with nginx
+FILE="/etc/nginx/sites-available/default"
+ERRORFILE="/usr/share/nginx/html/404error.html"
 
-# Install Nginx
-sudo apt-get update
-sudo apt-get install -y nginx
+REDIRECT="\n\tlocation /redirect_me {\n\t\treturn 301 https://youtu.be/dQw4w9WgXcQ;\n\t}\n"
+ERRORREDIRECT="\n\terror_page 404 /404error.html;\n\tlocation = /404error.html {\n\t\troot /usr/share/nginx/html;\n\t\tinternal;\n\t}\n"
+CUSTOMHEADER='\n\tadd_header X-Served-By $hostname;\n'
 
-sudo tee /etc/nginx/sites-available/default <<EOF
-server {
-    listen 80;
-    server_name web-01;
+STRING="Hello World!"
+FOUR="Ceci n'est pas une page"
 
-    location / {
-        add_header X-Served-By $hostname;
-        ...
-    }
-}
+apt-get -y update
+sudo apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
+sudo echo "$STRING" > /var/www/html/index.nginx-debian.html
+sudo sed -i "37i\ $REDIRECT" "$FILE"
 
-server {
-    listen 80;
-    server_name web-02;
+sudo echo "$FOUR" > "$ERRORFILE"
+sudo sed -i "37i\ $ERRORREDIRECT" "$FILE"
 
-    location / {
-        add_header X-Served-By $hostname;
-        ...
-    }
-}
-EOF
+sudo sed -i "37i\ $CUSTOMHEADER" "$FILE"
 
-sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
-
-sudo service nginx restart
+sudo /etc/init.d/nginx restart
