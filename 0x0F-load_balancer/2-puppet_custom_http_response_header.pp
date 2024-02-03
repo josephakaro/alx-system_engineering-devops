@@ -1,25 +1,38 @@
-# Installs a Nginx server with custome HTTP header
+# 2-puppet_custom_http_response_header.pp
 
-exec {'update':
-  provider => shell,
-  command  => 'sudo apt-get -y update',
-  before   => Exec['install Nginx'],
+# Install Nginx
+class { 'nginx':
+  manage_repo => true,
 }
 
-exec {'install Nginx':
-  provider => shell,
-  command  => 'sudo apt-get -y install nginx',
-  before   => Exec['add_header'],
+# Configure Nginx with custom HTTP header
+file { '/etc/nginx/sites-available/default':
+  ensure  => file,
+  content => template('nginx/default.erb'),
+  notify  => Service['nginx'],
 }
 
-exec { 'add_header':
-  provider    => shell,
-  environment => ["HOST=${hostname}"],
-  command     => 'sudo sed -i "s/include \/etc\/nginx\/sites-enabled\/\*;/include \/etc\/nginx\/sites-enabled\/\*;\n\tadd_header X-Served-By \"$HOST\";/" /etc/nginx/nginx.conf',
-  before      => Exec['restart Nginx'],
+file { '/etc/nginx/sites-enabled/default':
+  ensure  => 'link',
+  target  => '/etc/nginx/sites-available/default',
+  notify  => Service['nginx'],
 }
 
-exec { 'restart Nginx':
-  provider => shell,
-  command  => 'sudo service nginx restart',
+service { 'nginx':
+  ensure  => running,
+  enable  => true,
 }
+
+# Custom HTTP header template
+file { '/etc/nginx/custom_header.template':
+  ensure  => file,
+  content => "add_header X-Served-By $hostname;",
+}
+
+exec { 'generate_custom_header':
+  command     => 'envsubst < /etc/nginx/custom_header.template > /etc/nginx/custom_header.conf',
+  refreshonly => true,
+  subscribe   => File['/etc/nginx/custom_header.template'],
+  notify      => Service['nginx'],
+}
+
