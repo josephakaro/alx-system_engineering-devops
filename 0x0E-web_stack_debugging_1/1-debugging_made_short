@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#Sets nginx for listening to 80 port
-sed -i "s/8080/80/" /etc/nginx/sites-enabled/default
-sudo service nginx restart
-kill -9 "$(cat /var/run/nginx.pid)"
+# script of task 0 but using less lines
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+service nginx restart
+kill "$(pgrep 'nginx' | head -1)"
