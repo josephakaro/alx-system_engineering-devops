@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 # Script to configure HAproxy and install Nginx as loadbalancer
 # Update the system and install Nginx
 sudo apt-get update
