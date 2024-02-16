@@ -1,8 +1,8 @@
 # Incident Report: 504 Error / Site Outage
 
-<div align="center">
-  <img src="https://media1.tenor.com/m/djrMBeSGhaoAAAAC/this-server-everyday-hell-helluva-boss-or-something-idk.gif" alt="Server Hell GIF">
-</div>
+<p align="center">
+  <img src="https://giphy.com/gifs/noodlesagency-fire-server-serveronfire-sMKedUx9w9m8OGwXi6" alt="Server Hell GIF">
+</p>
 
 ## Summary
 On September 11th, 2018, the server experienced an outage at midnight, leading to a 504 error for users attempting to access the website. The server operates on a LAMP stack.
