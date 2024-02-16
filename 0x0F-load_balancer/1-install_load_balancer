@@ -3,6 +3,9 @@
 # Update package index
 sudo apt update
 
+# Install Nginx
+sudo apt install nginx -y
+
 # Install HAProxy
 sudo apt install haproxy -y
 
