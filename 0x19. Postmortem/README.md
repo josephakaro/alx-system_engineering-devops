@@ -1,7 +1,8 @@
 # Incident Report: 504 Error / Site Outage
 
 <div align="center">
-  <img src="https://giphy.com/gifs/noodlesagency-fire-server-serveronfire-sMKedUx9w9m8OGwXi6" alt="Server Hell GIF">
+  <div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/26gJzump2Q03pbOmc" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
+  <p><a href="https://giphy.com/gifs/tylermenzel-pokemon-go-server-26gJzump2Q03pbOmc">via GIPHY</a></p>
 </div>
 
 ## Summary
