@@ -37,8 +37,8 @@ frontend http_front
 
 backend http_back
     balance roundrobin
-    server web-01 422357-web-01:80 check
-    server web-02 422357-web-02:80 check
+    server 422357-web-01 54.144.156.100:80 check
+    server 422357-web-02 34.227.91.46:80 check
 EOT
 
 # Enable HAProxy to be managed via init script
