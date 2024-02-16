@@ -1,7 +1,8 @@
 # Incident Report: 504 Error / Site Outage
 
-  <div style="width:100%;height:0;padding-bottom:75%;position:relative;"><iframe src="https://giphy.com/embed/26gJzump2Q03pbOmc" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
-  <p><a href="https://giphy.com/gifs/tylermenzel-pokemon-go-server-26gJzump2Q03pbOmc">via GIPHY</a></p>
+<div align="center">
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWZpeDg4ZGR3Zjc2eW5wOW4xMW9tOXk3cjhhanNjMmRzZTc2ZzNidSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/26gJzump2Q03pbOmc/giphy.gif" alt="Server Hell GIF">
+</div>
 
 ## Summary
 On September 11th, 2018, the server experienced an outage at midnight, leading to a 504 error for users attempting to access the website. The server operates on a LAMP stack.
