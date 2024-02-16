@@ -1,20 +1,22 @@
-#!/bin/env bash
-# Script to configure HAproxy and install Nginx as loadbalancer
-# Update the system and install Nginx
-sudo apt-get update
+#!/bin/bash
 
-sudo apt-get install -y nginx
+# Update package index
+sudo apt update
 
 # Install HAProxy
-sudo apt-get install -y haproxy
+sudo apt install haproxy -y
 
 # Configure HAProxy
-cat <<EOF | sudo tee /etc/haproxy/haproxy.cfg
+haproxy_conf="/etc/haproxy/haproxy.cfg"
+sudo cp "$haproxy_conf" "$haproxy_conf.bak"  # Backup the original configuration file
+
+# Edit the HAProxy configuration file
+sudo tee "$haproxy_conf" > /dev/null <<EOT
 global
     log /dev/log local0
     log /dev/log local1 notice
     chroot /var/lib/haproxy
-    stats socket /run/haproxy/admin.sock mode 660 level admin expose-fd listeners
+    stats socket /run/haproxy/admin.sock mode 660 level admin
     stats timeout 30s
     user haproxy
     group haproxy
@@ -29,20 +31,18 @@ defaults
     timeout client 50000
     timeout server 50000
 
-frontend web_front
+frontend http_front
     bind *:80
-    default_backend web_servers
+    default_backend http_back
 
-backend web_servers
+backend http_back
     balance roundrobin
-    server 422357-web-01  34.207.188.65:80 check
-    server 422357-web-02 54.197.130.119:80 check
-EOF
+    server web-01 422357-web-01:80 check
+    server web-02 422357-web-02:80 check
+EOT
 
-# Enable HAProxy and Nginx as a service
+# Enable HAProxy to be managed via init script
 sudo systemctl enable haproxy
-sudo systemctl enable nginx
-# Restart HAProxy to apply changes
-sudo service nginx restart
-sudo service haproxy restart
 
+# Restart HAProxy to apply changes
+sudo systemctl restart haproxy
