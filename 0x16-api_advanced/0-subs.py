@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""Function to query subscribers on a given Reddit subreddit."""
+"""
+    Function to query subscribers on a given Reddit subreddit.
+"""
 import requests
 
 
@@ -16,6 +18,7 @@ def number_of_subscribers(subreddit):
             return 0
         results = response.json().get("data")
         return results.get("subscribers")
+
     except (Exception):
         print('Not Found')
         return (0)
