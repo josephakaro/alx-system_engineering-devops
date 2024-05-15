@@ -1,24 +1,17 @@
 #!/usr/bin/python3
-"""
-    Function to query subscribers on a given Reddit subreddit.
-"""
-import requests
+"""Module for task 0"""
 
 
 def number_of_subscribers(subreddit):
-    """Return the total number of subscribers on a given subreddit."""
-    try:
-        url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
-        headers = {
-            "User-Agent": "linux:0x16.api.advanced:v1.0.0\
-            (by /u/Large_Alternative_30)"
-        }
-        response = requests.get(url, headers=headers, allow_redirects=False)
-        if response.status_code == 404:
-            return 0
-        results = response.json().get("data")
-        return results.get("subscribers")
+    """Queries the Reddit API and returns the number of subscribers
+    to the subreddit"""
+    import requests
 
-    except (Exception):
-        print('Not Found')
-        return (0)
+    sub_info = requests.get("https://www.reddit.com/r/{}/about.json"
+                            .format(subreddit),
+                            headers={"User-Agent": "My-User-Agent"},
+                            allow_redirects=False)
+    if sub_info.status_code >= 300:
+        return 0
+
+    return sub_info.json().get("data").get("subscribers")
