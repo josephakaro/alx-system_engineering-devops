@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 """
-    Fetch the Reddit API then returns the number of subscribers in for a subreddit.
+    Fetch the Reddit API then returns
+    the number of subscribers in for a subreddit.
     Example:
         Subreddit: 'Python'
         subscribers: '663773'
         ...
 """
+
 
 def number_of_subscribers(subreddit):
     """\n
@@ -13,7 +15,8 @@ def number_of_subscribers(subreddit):
         Arguments: subreddit\n
         Return: Number of Subscriber, 0 otherwise.\n
 
-        Hint: Invalid subreddits may return a redirect to search results. Ensure that you are not following redirects.
+        Hint: Invalid subreddits may return a redirect to search results.
+        Ensure that you are not following redirects.
     """
     import requests
 
