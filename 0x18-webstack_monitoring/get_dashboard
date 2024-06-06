@@ -1,0 +1,22 @@
+#!/usr/bin/bash
+
+# Replace these with your actual API and application keys
+API_KEY="8f7e1387f5e52aa29aaa7135a610cc1e"
+APP_KEY="0e668a74268fca448ff7e9e875a61efc59cfb9dd"
+
+# Create a new dashboard and extract its ID
+DASHBOARD_RESPONSE=$(curl -s -X POST \
+  https://api.datadoghq.com/api/v1/dashboard \
+  -H "Content-Type: application/json" \
+  -H "DD-API-KEY: $API_KEY" \
+  -H "DD-APPLICATION-KEY: $APP_KEY" \
+  -d '{
+    "title": "0x18-webstack-monitoring",
+    "widgets": [],
+    "layout_type": "ordered"
+  }')
+
+DASHBOARD_ID=$(echo $DASHBOARD_RESPONSE | jq -r '.id')
+
+# Write the dashboard ID to the file
+echo $DASHBOARD_ID > 2-setup_datadog
