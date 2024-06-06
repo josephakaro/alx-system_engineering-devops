@@ -1,54 +1,54 @@
 #!/usr/bin/python3
 """
-    Python script that fetch all title of the subreddit and do word count.
+Python script that fetches all titles of a subreddit and performs a word count.
 """
 
+import requests
 
 def count_words(subreddit, word_list, word_count={}, after=None):
     """
-        Prototype: count_word
-        Args:
-            subreddit:
-            word_list:
-            word_count:
-            after: none
+    Counts the occurrences of words in the titles of hot posts in a subreddit.
+    
+    Args:
+        subreddit (str): The name of the subreddit.
+        word_list (list): List of words to count.
+        word_count (dict): Dictionary to store the word counts.
+        after (str): The id of the last post, used for pagination.
     """
-    import requests
-
-    response = requests.get("https://www.reddit.com/r/{}/hot.json"
-                            .format(subreddit),
-                            params={"after": after},
-                            headers={"User-Agent": "My-User-Agent"},
-                            allow_redirects=False)
+    headers = {"User-Agent": "My-User-Agent"}
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
+    params = {"after": after}
+    
+    response = requests.get(url, headers=headers, params=params, allow_redirects=False)
     if response.status_code != 200:
-        return None
-
+        return
+    
     data = response.json()
-
-    hot_post = [child.get("data").get("title")
-            for child in data
-            .get("data")
-            .get("children")]
-    if not hot_post:
-        return None
-
-    word_list = list(dict.fromkeys(word_list))
-
-    if word_count == {}:
-        word_count = {word: 0 for word in word_list}
-
-    for title in hot_post:
-        split_words = title.split(' ')
-        for word in word_list:
-            for s_word in split_words:
-                if s_word.lower() == word.lower():
-                    word_count[word] += 1
-
-    if not data.get("data").get("after"):
-        sorted_counts = sorted(word_count.items(), key=lambda kv: kv[0])
-        sorted_counts = sorted(word_count.items(),
-                            key=lambda kv: kv[1], reverse=True)
-        [print('{}: {}'.format(k, v)) for k, v in sorted_counts if v != 0]
-    else:
-        return count_words(subreddit, word_list, word_count,
-                        data.get("data").get("after"))
+    posts = data.get("data", {}).get("children", [])
+    
+    if not posts:
+        return
+    
+    if not word_count:
+        # Initialize word_count dictionary
+        word_count = {word.lower(): 0 for word in word_list}
+    
+    for post in posts:
+        title = post.get("data", {}).get("title", "")
+        words = title.split()
+        for word in words:
+            cleaned_word = word.lower().strip(".,!?_")
+            if cleaned_word in word_count:
+                word_count[cleaned_word] += 1
+    
+    after = data.get("data", {}).get("after", None)
+    if after:
+        # Recursive call with the new 'after' value
+        return count_words(subreddit, word_list, word_count, after)
+    
+    # If no more pages, sort and print the results
+    if not after:
+        sorted_word_count = sorted(word_count.items(), key=lambda item: (-item[1], item[0]))
+        for word, count in sorted_word_count:
+            if count > 0:
+                print(f"{word}: {count}")
