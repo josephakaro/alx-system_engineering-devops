@@ -24,13 +24,14 @@ def recurse(subreddit, hot_list=[], count=0, after=None):
         return None
 
     host_post = hot_list + [child.get("data").get("title")
-                        for child in response.json()
-                        .get("data")
-                        .get("children")]
+                            for child in response.json()
+                            .get("data")
+                            .get("children")]
 
     data = response.json()
     if not data.get("data").get("after"):
         return host_post
 
-    return recurse(subreddit, host_post, data.get("data").get("count"),
-                data.get("data").get("after"))
+    return recurse(subreddit, host_post,
+                   data.get("data").get("count"),
+                   data.get("data").get("after"))
