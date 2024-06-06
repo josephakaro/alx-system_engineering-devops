@@ -1,22 +1,33 @@
 #!/usr/bin/python3
 """
-    Python Script that fetches top ten subreddits through Reddit API url.
+Python script that fetches the top ten hot posts from a given subreddit through the Reddit API.
 """
+
+import requests
 
 
 def top_ten(subreddit):
     """
-        Prototype: top_ten
-        Args: subreddit
+    Prints the titles of the first 10 hot posts listed for a given subreddit.
+    
+    Args:
+        subreddit (str): The name of the subreddit.
     """
-    import requests
-    limit = 9
-    response = requests.get("https://www.reddit.com/r/{}/hot.json?limit={}"
-                            .format(subreddit, limit),
-                            headers={"User-Agent": "My-User-Agent"},
-                            allow_redirects=False)
-    if response.status_code >= 300:
-        print('None')
-    else:
-        [print(child.get("data").get("title"))
-        for child in response.json().get("data").get("children")]
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
+    headers = {"User-Agent": "My-User-Agent"}
+    params = {"limit": 9}
+    
+    response = requests.get(url, headers=headers, params=params, allow_redirects=False)
+    
+    if response.status_code != 200:
+        print("None")
+        return
+    
+    data = response.json().get("data", {}).get("children", [])
+    if not data:
+        print("None")
+        return
+    
+    for post in data:
+        title = post.get("data", {}).get("title", "None")
+        print(title)
