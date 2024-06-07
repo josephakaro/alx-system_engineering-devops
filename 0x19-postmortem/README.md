@@ -1,6 +1,7 @@
 # Incident Report for 504 Error / Site Outage
+<br>
 ## Summary
-    On September 11th, 2018 at midnight, the server experienced a 504 error, resulting in a website outage. The server operates on a LAMP stack.
+On Jun 4th, 2024 at midnight, the server experienced a 504 error, resulting in a website outage. The server operates on a LAMP stack.
 
 ## Timeline
 
@@ -17,8 +18,8 @@
 - 00:40 CAT - Server returned to normal operation and the website loaded correctly.
 
 ## Root Cause and Resolution
-    The issue stemmed from a misspelled file name in the wp-settings.php file, leading to a 500 error. Initially, error logging was disabled, preventing immediate identification of the issue. After enabling error logging in the php.ini file and restarting the server, the PHP error logs indicated that a file with a .phpp extension was missing. Correcting the file extension resolved the error. To prevent recurrence across other servers, a Puppet deployment script was used to fix the file name, ensuring all servers were updated. This action restored normal site and server operation.
+The issue stemmed from a misspelled file name in the wp-settings.php file, leading to a 500 error. Initially, error logging was disabled, preventing immediate identification of the issue. After enabling error logging in the php.ini file and restarting the server, the PHP error logs indicated that a file with a .phpp extension was missing. Correcting the file extension resolved the error. To prevent recurrence across other servers, a Puppet deployment script was used to fix the file name, ensuring all servers were updated. This action restored normal site and server operation.
 
 ## Corrective and Preventive Measures
-    Ensure error logging is always enabled on all servers to facilitate quick identification of issues.
+Ensure error logging is always enabled on all servers to facilitate quick identification of issues.
 Test all servers and sites locally before deploying to a multi-server setup to minimize downtime and troubleshooting during live deployments.
