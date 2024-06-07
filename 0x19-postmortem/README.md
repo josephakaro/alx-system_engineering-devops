@@ -1,5 +1,6 @@
 # Incident Report for 504 Error / Site Outage
 <br>
+
 ## Summary
 On Jun 4th, 2024 at midnight, the server experienced a 504 error, resulting in a website outage. The server operates on a LAMP stack.
 
